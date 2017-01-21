@@ -132,7 +132,7 @@ public class Ocean : MonoBehaviour {
     void PlaceWater(int xPos)
     {
         GameObject newWater = GameObject.Instantiate(waterPixel, new Vector3(xPos * 0.1f, 0, 20), Quaternion.identity) as GameObject;
-        newWater.transform.localScale = new Vector3(0.1f, screenHeight, 40);
+        newWater.transform.localScale = new Vector3(0.1f, screenHeight, 20);
         newWater.transform.parent = waterParent;
         newWater.name = ("Water_" + xPos);
         waterArray[xPos] = newWater;
@@ -142,7 +142,7 @@ public class Ocean : MonoBehaviour {
 	
     void AddForce(int startingPixel, float force)
     {
-        if (waterPixelArray[startingPixel].GetVelocityMagnitude() > 15)
+        if (waterPixelArray[startingPixel].GetVelocityMagnitude() > 8)
         {
             force *= 0.1f;
         }

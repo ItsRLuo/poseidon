@@ -13,6 +13,9 @@ public class CatapultStone : MonoBehaviour {
     float destroyDelay = 3f;
     bool isInvisible = false;
 
+    [SerializeField]
+    private GameObject particleSystem;
+
     private void Start()
     {
         arc = new GameObject("Arc");
@@ -30,18 +33,21 @@ public class CatapultStone : MonoBehaviour {
                 dotTimer = 0;
                 GameObject newDot = Instantiate(dot, transform.position, Quaternion.identity);
                 newDot.transform.parent = arc.transform;
-                newDot.transform.LookAt(transform.position + new Vector3(gameObject.GetComponent<Rigidbody2D>().velocity.x, gameObject.GetComponent<Rigidbody2D>().velocity.y, 0));
+                newDot.transform.LookAt(transform.position + new Vector3(gameObject.GetComponent<Rigidbody>().velocity.x, gameObject.GetComponent<Rigidbody>().velocity.y, 0));
             }
         }
 
-        if (destroyTimer < destroyDelay)
+        if (isInvisible)
         {
-            destroyTimer += Time.deltaTime;
-        }
-        if (destroyTimer >= destroyDelay)
-        {
-            Destroy(arc);
-            Destroy(gameObject);
+            if (destroyTimer < destroyDelay)
+            {
+                destroyTimer += Time.deltaTime;
+            }
+            if (destroyTimer >= destroyDelay)
+            {
+                Destroy(arc);
+                Destroy(gameObject);
+            }
         }
     } 
 
@@ -51,6 +57,20 @@ public class CatapultStone : MonoBehaviour {
         if (isInvisible)
         {
             destroyDelay *= 2;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 4)
+        {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            gameObject.layer = 8;
+            gameObject.GetComponent<SphereCollider>().isTrigger = false;
+            if (particleSystem != null)
+            {
+                particleSystem.GetComponent<ParticleSystem>().Stop(); 
+            }
         }
     }
 }

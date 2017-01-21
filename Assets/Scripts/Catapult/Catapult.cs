@@ -67,13 +67,13 @@ public class Catapult : MonoBehaviour {
         GameObject newStone;
         if (isInvisible)
         {
-            newStone = Instantiate(catapultStoneInvisible, transform.position + new Vector3(0,0,5), Quaternion.identity);
+            newStone = Instantiate(catapultStoneInvisible, new Vector3(transform.position.x, transform.position.y, 15), Quaternion.identity);
         }
         else
         {
-            newStone = Instantiate(catapultStone, transform.position, Quaternion.identity);
+            newStone = Instantiate(catapultStone, new Vector3(transform.position.x, transform.position.y, 12), Quaternion.identity);
         }
-        newStone.GetComponent<Rigidbody2D>().AddForce(new Vector2(xForce, yForce));
+        newStone.GetComponent<Rigidbody>().AddForce(new Vector2(xForce, yForce));
         newStone.GetComponent<CatapultStone>().SetInvisible(isInvisible);
     }
 }
