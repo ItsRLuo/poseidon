@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoatSpawner : MonoBehaviour
 {
     public float BoatsPerSecond = 0.5f;
-    public Boat BoatPrefab;
+    public BoatController BoatPrefab;
 
 	// Use this for initialization
 	void Start ()
@@ -19,7 +19,7 @@ public class BoatSpawner : MonoBehaviour
         float spawnProb = Time.deltaTime * BoatsPerSecond;
         if (spawnProb > Random.value)
         {
-            var boat = GameObject.Instantiate<Boat>(BoatPrefab);
+            var boat = GameObject.Instantiate<BoatController>(BoatPrefab);
             boat.transform.position = transform.position;
         }
 	}
