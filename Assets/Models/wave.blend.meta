@@ -52,6 +52,8 @@ ModelImporter:
     100088: Water
     100090: Sail_Big-Ship_BigLong_001
     100092: Sail_Big-Ship_BigLong_002
+    100094: Tree
+    100096: Tree_Small
     400000: Cube
     400002: Cube_001
     400004: Cube_002
@@ -99,6 +101,8 @@ ModelImporter:
     400088: Water
     400090: Sail_Big-Ship_BigLong_001
     400092: Sail_Big-Ship_BigLong_002
+    400094: Tree
+    400096: Tree_Small
     2300000: Cube
     2300002: Cube_001
     2300004: Cube_002
@@ -145,6 +149,8 @@ ModelImporter:
     2300086: Water
     2300088: Sail_Big-Ship_BigLong_001
     2300090: Sail_Big-Ship_BigLong_002
+    2300092: Tree
+    2300094: Tree_Small
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
@@ -191,6 +197,8 @@ ModelImporter:
     3300086: Water
     3300088: Sail_Big-Ship_BigLong_001
     3300090: Sail_Big-Ship_BigLong_002
+    3300092: Tree
+    3300094: Tree_Small
     4300000: Cube_021
     4300002: Cube_020
     4300004: Cube_019
@@ -237,6 +245,8 @@ ModelImporter:
     4300086: Water
     4300088: Sail_Big-Ship_BigLong_002
     4300090: Sail_Big-Ship_BigLong_001
+    4300092: Tree
+    4300094: Tree_Small
     7400000: Default Take
     9500000: //RootNode
   materials:
