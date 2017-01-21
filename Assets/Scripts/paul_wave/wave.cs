@@ -9,13 +9,14 @@ public class wave : MonoBehaviour {
 	// amplitude
 	public const float A = 2f;
 	// angular freq
-	public const float W = 1.5f;
+	public const float W = 5.5f;
 
 	// const
-	public const float B = 1;
+	public const float B = 1.2f;
 	public const float C = 1;
 
 	public const float CLIP_INTERVAL = 25;
+    public const float LEVEL_Y = 0;
 
 	public float currentA = A;
 	public float? lastClickTime = null;
@@ -27,7 +28,7 @@ public class wave : MonoBehaviour {
 		this.meshC = this.GetComponent<MeshCollider>();
 	}
 
-	// (A * sin(w*x) + B)/ln(x + C)
+	// (A * sin(w*x) + B)/exp(x)
 	Vector3 waveFunction(Vector3 vert, float timeDelta) {
 		float x = vert.x;
 		float y;
@@ -39,7 +40,8 @@ public class wave : MonoBehaviour {
             }
         }
 
-		y = currentA * Mathf.Sin(x * timeDelta * W) / (Mathf.Exp(x * mult));
+        float divider = Mathf.Max(timeDelta, 2);
+		y = (currentA * Mathf.Sin((x * W * timeDelta) / divider)) / (Mathf.Exp(x * mult));
         y = float.IsNaN(y) ? 0 : y;
 
 		return new Vector3(x, y, vert.z);
