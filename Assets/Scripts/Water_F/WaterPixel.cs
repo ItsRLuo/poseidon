@@ -15,4 +15,9 @@ public class WaterPixel {
     {
         rigidbody.AddForce(new Vector3(0, force, 0));
     }
+
+    public float GetVelocityMagnitude()
+    {
+        return rigidbody.velocity.magnitude;
+    }
 }
