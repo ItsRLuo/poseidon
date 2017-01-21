@@ -28,6 +28,21 @@ public class Ocean : MonoBehaviour {
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 targetPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            int targetX = (int)targetPoint.x * 10;
+            float targetY = targetPoint.y;
+
+            if (targetX >= 0 && targetX <= screenWidth)
+            {
+                AddForce(targetX, 30);
+            }
+        }
+    }
+
     void PlaceWater(int xPos)
     {
         GameObject newWater = GameObject.Instantiate(waterPixel, new Vector3(xPos * 0.1f, 0, 20), Quaternion.identity) as GameObject;
