@@ -11,6 +11,8 @@ public class WaterExperiment : MonoBehaviour
     public int WaterEnd = 100;
     public int WaterOffset = -3;
     public float DecayTime = 10;
+    public float MaxWaveStart = 10f;
+    public float MinWaveStart = 10f;
 
     private List<WaterSegment> waterSegments = new List<WaterSegment>();
     private WaterSegment activeSegment;
@@ -48,7 +50,7 @@ public class WaterExperiment : MonoBehaviour
         if (Input.GetMouseButton(0) && activeSegment != null)
         {
             var mouseCurrentY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
-            var translation = new Vector3(0, mouseCurrentY - mouseLastY, 0);
+            var translation = new Vector3(0, Mathf.Clamp(mouseCurrentY - mouseLastY, MinWaveStart, MaxWaveStart), 0);
             activeSegment.transform.position = activeSegment.NaturalPosition + translation;
             PropogateFromWave(activeSegment, translation);
         }
@@ -148,8 +150,9 @@ public class WaterExperiment : MonoBehaviour
         {
             X = activeSegment.NaturalPosition.x,
             T = 0,
-            InitialAmplitude = mouseCurrentY - mouseLastY
+            InitialAmplitude = Mathf.Clamp(mouseCurrentY - mouseLastY, MinWaveStart, MaxWaveStart)
         });
+        Debug.Log(waves[waves.Count - 1].InitialAmplitude);
         foreach (var segment in waterSegments)
         {
             segment.IsBeingControlled = false;
