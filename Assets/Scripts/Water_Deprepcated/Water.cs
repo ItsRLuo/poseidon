@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterExperiment : MonoBehaviour
+public class Water : MonoBehaviour
 {
     public WaterSegment WaterSegment;
     public float SegmentWidth = 10;
@@ -49,10 +49,10 @@ public class WaterExperiment : MonoBehaviour
 
         if (Input.GetMouseButton(0) && activeSegment != null)
         {
-            var mouseCurrentY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
-            var translation = new Vector3(0, Mathf.Clamp(mouseCurrentY - mouseLastY, MinWaveStart, MaxWaveStart), 0);
-            activeSegment.transform.position = activeSegment.NaturalPosition + translation;
-            PropogateFromWave(activeSegment, translation);
+            //var mouseCurrentY = Camera.main.ScreenToWorldPoint(Input.mousePosition).y;
+            //var translation = new Vector3(0, Mathf.Clamp(mouseCurrentY - mouseLastY, MinWaveStart, MaxWaveStart), 0);
+            //activeSegment.transform.position = activeSegment.NaturalPosition + translation;
+            //PropogateFromWave(activeSegment, translation);
         }
 
         UpdateWaves();
@@ -71,7 +71,7 @@ public class WaterExperiment : MonoBehaviour
             }
         }
 
-        foreach (var waterSegment in this.waterSegments)
+        foreach (var waterSegment in waterSegments)
         {
             if (waterSegment.IsBeingControlled)
             {
@@ -87,39 +87,6 @@ public class WaterExperiment : MonoBehaviour
             }
 
             waterSegment.transform.position = waterSegment.NaturalPosition + new Vector3(0, yOffset, 0);
-        }
-    }
-
-    private float falloff = 0.0002f;
-
-    private void PropogateFromWave(WaterSegment activeSegment, Vector3 translation)
-    {
-        var currentWave = activeSegment;
-        float influence = 1.0f;
-        int numSegments = 0;
-
-        while (currentWave != null && influence > 0.1f)
-        {
-            currentWave.IsBeingControlled = true;
-            currentWave = currentWave.Previous;
-            currentWave.transform.position = currentWave.NaturalPosition + influence * translation;
-
-            numSegments++;
-            influence = 1f - falloff * (1f * numSegments * numSegments);
-        }
-
-        currentWave = activeSegment;
-        influence = 1.0f;
-        numSegments = 0;
-
-        while (currentWave != null && influence > 0.1f)
-        {
-            currentWave.IsBeingControlled = true;
-            currentWave = currentWave.Next;
-            currentWave.transform.position = currentWave.NaturalPosition + influence * translation;
-
-            numSegments++;
-            influence = 1f - falloff * (1f * numSegments * numSegments);
         }
     }
 
@@ -152,11 +119,6 @@ public class WaterExperiment : MonoBehaviour
             T = 0,
             InitialAmplitude = Mathf.Clamp(mouseCurrentY - mouseLastY, MinWaveStart, MaxWaveStart)
         });
-        Debug.Log(waves[waves.Count - 1].InitialAmplitude);
-        foreach (var segment in waterSegments)
-        {
-            segment.IsBeingControlled = false;
-        }
         activeSegment = null;
     }
 }
