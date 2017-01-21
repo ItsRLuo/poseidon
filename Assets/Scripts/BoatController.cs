@@ -7,6 +7,7 @@ public class BoatController : MonoBehaviour
 {
     public Vector3 Velocity;
     public float SinkSpeed = 3.0f;
+    private const int SINKING_LAYER = 8;
 
     private bool IsSinking;
 
@@ -18,22 +19,13 @@ public class BoatController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        //if (IsSinking)
-        //{
-        //    //gameObject.transform.position += sinkVelocity;
-        //}
-        //else
-        //{
-            gameObject.transform.position += Velocity * Time.deltaTime;
-        //}
+        gameObject.transform.position += Velocity * Time.deltaTime;
 	}
 
     internal void Sink()
     {
-        //GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-        //GetComponent<Rigidbody>().useGravity = false;
         GetComponent<Rigidbody>().drag = 6f;
-        GetComponent<CapsuleCollider>().enabled = false;
+        gameObject.layer = SINKING_LAYER;
         Debug.Log("Glug glug glug");
     }
 }
