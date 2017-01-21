@@ -43,7 +43,7 @@ public class CatapultStone : MonoBehaviour {
             Destroy(arc);
             Destroy(gameObject);
         }
-    }
+    } 
 
     public void SetInvisible(bool newIsInvisible)
     {
