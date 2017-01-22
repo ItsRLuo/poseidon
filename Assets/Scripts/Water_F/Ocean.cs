@@ -84,6 +84,11 @@ public class Ocean : MonoBehaviour {
             {
                 Vector3 startPosition = targetingBar.GetComponent<LineRenderer>().GetPosition(0);
                 GameObject launchAnimation = GameObject.Instantiate(launchAnimationPrefab, newPosition, Quaternion.identity) as GameObject;
+
+                Vector3 launchVector = startPosition - newPosition;
+                float angle = Mathf.Atan2(launchVector.y, launchVector.x);
+
+                launchAnimation.transform.eulerAngles = new Vector3(0, 0, angle * 180 / Mathf.PI + 90);
                 launchAnimation.GetComponent<LaunchAnimation>().SetEndPosition(startPosition);
                 Destroy(targetingBar);
                 float force = (startPosition.y - newPosition.y) * wavePower;
