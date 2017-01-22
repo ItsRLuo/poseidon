@@ -18,18 +18,19 @@ public class BoatSinkingCollider : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider collider)
-    {
-        //if (collider.GetComponent<WaterPixel>() != null)
-        if (collider.gameObject.layer == WATER_LAYER)
-        {
-            BoatController b = GetComponentInParent<BoatController>();
+    void OnTriggerEnter(Collider collider) {
+		BoatController boatController = GetComponentInParent<BoatController>();
 
-            if (b != null)
-            {
-                // we have hit the water in a bad way, time to die
-                b.Sink();
-            }
+		if (collider.gameObject.name.Contains("Stone")) {
+			boatController.Smoke();
+			boatController.Sink();
+		}
+
+        //if (collider.GetComponent<WaterPixel>() != null)
+        if (collider.gameObject.layer == WATER_LAYER) {
+            // we have hit the water in a bad way, time to die
+            if (boatController != null)
+			boatController.Sink();
         }
     }
 }

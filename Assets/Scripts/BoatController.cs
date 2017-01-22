@@ -10,23 +10,21 @@ public class BoatController : MonoBehaviour
     private const int SINKING_LAYER = 8;
 
     private bool playedSplash;
-    private bool IsSinking;
+    private bool IsSinking = false;
 
     public AudioClip SplashClip;
     public AudioSource AudioSource;
     public int Points;
+    public ParticleSystem SmokePS;
 
     void OnCollisionEnter(Collision collision)
     {
-        if (playedSplash)
-        {
+        if (playedSplash || IsSinking) {
             return;
         }
 
         playedSplash = true;
-
-        if (this.AudioSource && this.SplashClip)
-        {
+        if (this.AudioSource && this.SplashClip) {
             AudioUtils.PlayAudioClip(this.SplashClip, this.AudioSource);
         }
     }
@@ -37,10 +35,22 @@ public class BoatController : MonoBehaviour
         gameObject.transform.position += Velocity * Time.deltaTime;
     }
 
-    internal void Sink()
+	public void Smoke() {
+		var smoke = GameObject.Instantiate<ParticleSystem>(SmokePS);
+		smoke.transform.position = transform.position;
+        var em = smoke.emission;
+        em.enabled = true;
+	}
+
+    public bool Sinking {
+        get { return IsSinking; }
+    }
+
+    public void Sink()
     {
+        IsSinking = true;
+
         GetComponent<Rigidbody>().drag = 6f;
-        Debug.Log("Glug glug glug");
 
         gameObject.layer = SINKING_LAYER;
         foreach (var subComponent in GetComponentsInChildren<Transform>())

@@ -37,13 +37,12 @@ public class CatapultStone : MonoBehaviour {
             }
         }
 
-        if (isInvisible)
-        {
-            if (destroyTimer < destroyDelay)
+            if (destroyTimer < destroyDelay * 3)
             {
                 destroyTimer += Time.deltaTime;
             }
-            if (destroyTimer >= destroyDelay)
+        {
+            if ((isInvisible && destroyTimer >= destroyDelay) || destroyTimer >= destroyDelay * 3)
             {
                 Destroy(arc);
                 Destroy(gameObject);
