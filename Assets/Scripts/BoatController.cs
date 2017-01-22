@@ -39,7 +39,7 @@ public class BoatController : MonoBehaviour
 
         playedSplash = true;
         if (this.AudioSource && this.SplashClip) {
-            AudioUtils.PlayAudioClip(this.SplashClip, this.AudioSource);
+            AudioUtils.PlayAudioClip(this.SplashClip, this.AudioSource, 0.5f);
         }
     }
 
@@ -86,7 +86,7 @@ public class BoatController : MonoBehaviour
         int randomChange = UnityEngine.Random.Range(0, 10);
         if (randomChange == 0) {
             SoundManager soundManager = FindObjectOfType<SoundManager>();
-            soundManager.PlayRandomClip();
+			if (soundManager != null) soundManager.PlayRandomClip();
         }
     }
 

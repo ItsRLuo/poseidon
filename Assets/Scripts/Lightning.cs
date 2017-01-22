@@ -12,6 +12,8 @@ public class Lightning : MonoBehaviour
     public Vector3 StartPosition;
     public Vector3 EndPosition;
     public GameObject ActualLightningBolt;
+    public AudioSource AudioSource;
+    public AudioClip LightningClip;
 
     public void Start()
     {
@@ -20,6 +22,8 @@ public class Lightning : MonoBehaviour
 
         l.StartPosition = this.StartPosition;
         l.EndPosition = this.EndPosition;
+
+        AudioUtils.PlayAudioClip(this.LightningClip, this.AudioSource);
     }
 
     public void Update()
@@ -34,6 +38,8 @@ public class Lightning : MonoBehaviour
     private IEnumerator DestroyLightning()
     {
         yield return new WaitForSeconds(this.Duration);
+        this.g.GetComponent<Renderer>().enabled = false;
+        yield return new WaitForSeconds(this.LightningClip.length - this.Duration);
         GameObject.Destroy(this.g);
         GameObject.Destroy(this.gameObject);
     }

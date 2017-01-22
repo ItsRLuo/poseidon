@@ -25,15 +25,7 @@ public class GameplayScene : MonoBehaviour
 
     public void Start()
     {
-        #region Initialize tower health slider
-        Vector2 viewportPosition_start = this.Camera.WorldToScreenPoint(this.TowerLocationStart.position);
-        Vector2 viewportPosition_end = this.Camera.WorldToScreenPoint(this.TowerLocationEnd.position);
-
         this.TowerHealthSlider.value = 1;
-        RectTransform rt = this.TowerHealthSlider.GetComponent<RectTransform>();
-        rt.sizeDelta = new Vector2(viewportPosition_end.x - viewportPosition_start.x, rt.sizeDelta.y);
-        rt.anchoredPosition3D = new Vector3(viewportPosition_start.x + rt.sizeDelta.x / 2, viewportPosition_start.y, 0);
-        #endregion
 
         lightningChargeMeter = LightningMeterPrefab.GetComponentsInChildren<Meter>()[0];
 
@@ -43,6 +35,15 @@ public class GameplayScene : MonoBehaviour
 
     public void Update()
     {
+        #region Place tower health slider
+        Vector2 viewportPosition_start = this.Camera.WorldToScreenPoint(this.TowerLocationStart.position);
+        Vector2 viewportPosition_end = this.Camera.WorldToScreenPoint(this.TowerLocationEnd.position);
+
+        RectTransform rt = this.TowerHealthSlider.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(viewportPosition_end.x - viewportPosition_start.x, rt.sizeDelta.y);
+        rt.anchoredPosition3D = new Vector3(viewportPosition_start.x + rt.sizeDelta.x / 2, viewportPosition_start.y, 0);
+        #endregion
+
         if (lightningChargeMeter.Full()) {
             bool executeAll = false;
 

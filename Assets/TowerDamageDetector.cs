@@ -20,7 +20,8 @@ public class TowerDamageDetector : MonoBehaviour
 
 		yield return new WaitForSeconds(1.2f);
 
-        if (bc != null && bc.Sinking) yield break;
+		if (bc == null) yield break;
+        if (bc.Sinking) yield break;
 
 		var explosion = GameObject.Instantiate<GameObject>(ExplosionPrefab);
         explosion.transform.position = bc.transform.position;
@@ -28,6 +29,7 @@ public class TowerDamageDetector : MonoBehaviour
         CameraShake.Shake(0.25f, bc.Points / 200.0f);
 
         soundManager.PlayTakeDamage();
+        Destroy(bc.gameObject);
     }
 
     public void OnTriggerEnter(Collider collider)
