@@ -14,7 +14,11 @@ public class TowerDamageDetector : MonoBehaviour
     { }
 
 	IEnumerator AnimateExplosion(BoatController bc) {
+
 		yield return new WaitForSeconds(1.2f);
+
+        if (bc != null && bc.Sinking) yield break;
+
 		var explosion = GameObject.Instantiate<GameObject>(ExplosionPrefab);
         explosion.transform.position = bc.transform.position;
         this.GameplayScene.AddDamage(bc.Points / 500.0f);
