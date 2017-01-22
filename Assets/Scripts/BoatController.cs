@@ -38,7 +38,7 @@ public class BoatController : MonoBehaviour
 
         playedSplash = true;
         if (this.AudioSource && this.SplashClip) {
-            AudioUtils.PlayAudioClip(this.SplashClip, this.AudioSource);
+            AudioUtils.PlayAudioClip(this.SplashClip, this.AudioSource, 0.5f);
         }
     }
 
