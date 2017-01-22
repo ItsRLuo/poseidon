@@ -38,7 +38,7 @@ public class BoatController : MonoBehaviour
 
         playedSplash = true;
         if (this.AudioSource && this.SplashClip) {
-            AudioUtils.PlayAudioClip(this.SplashClip, this.AudioSource);
+            AudioUtils.PlayAudioClip(this.SplashClip, this.AudioSource, 0.5f);
         }
     }
 
@@ -77,6 +77,12 @@ public class BoatController : MonoBehaviour
             ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
             scoreManager.ScoreAtPoint(transform.position, Points);
             scoreManager.SinkBoatOfType(boatName);
+        }
+
+        int randomChange = UnityEngine.Random.Range(0, 10);
+        if (randomChange == 0) {
+            SoundManager soundManager = FindObjectOfType<SoundManager>();
+            soundManager.PlayRandomClip();
         }
     }
 }

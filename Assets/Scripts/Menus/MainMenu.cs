@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
         {
             float randomTime = Random.Range(this.CreakMinTime, this.CreakMaxTime);
             yield return new WaitForSeconds(randomTime);
-            AudioUtils.PlayAudioClip(this.CreakingBoatSound, this.AudioSource);
+            AudioUtils.PlayAudioClip(this.CreakingBoatSound, this.AudioSource, 0.5f);
         }
     }
 }
