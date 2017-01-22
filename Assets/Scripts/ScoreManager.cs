@@ -62,6 +62,10 @@ public class ScoreManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighScore", currentScore);
         }
+
+		PlayerPrefs.SetInt("Score", currentScore);
+
+
     }
 
     public void MultiplyerAtPointForDuration(Vector3 point, int multiplyer, float duration)
@@ -85,5 +89,15 @@ public class ScoreManager : MonoBehaviour
     {
         int currentValue = PlayerPrefs.GetInt(boatName, 0);
         PlayerPrefs.SetInt(boatName, currentValue + 1);
+
+		int allTimeValue = PlayerPrefs.GetInt(boatName+"AllTime", 0);
+		PlayerPrefs.SetInt(boatName, currentValue + 1);
+
     }
+
+	void Start (){
+		PlayerPrefs.DeleteKey ("Rowboat");
+		PlayerPrefs.DeleteKey ("Warship");
+		PlayerPrefs.DeleteKey ("Score");
+	}
 }
