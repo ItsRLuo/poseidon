@@ -12,6 +12,7 @@ public class BoatController : MonoBehaviour
 
     private bool playedSplash;
     private bool IsSinking = false;
+    private bool IsExploding = false;
 
     public AudioClip SplashClip;
     public AudioSource AudioSource;
@@ -63,7 +64,10 @@ public class BoatController : MonoBehaviour
     {
         IsSinking = true;
 
-        GetComponent<Rigidbody>().drag = 6f;
+        if (IsExploding == false)
+        {
+            GetComponent<Rigidbody>().drag = 6f;
+        }
 
         gameObject.layer = SINKING_LAYER;
         foreach (var subComponent in GetComponentsInChildren<Transform>())
@@ -84,5 +88,17 @@ public class BoatController : MonoBehaviour
             SoundManager soundManager = FindObjectOfType<SoundManager>();
             soundManager.PlayRandomClip();
         }
+    }
+
+    public void Explode(Vector3 explosionPosition)
+    {
+        IsExploding = true;
+        Vector3 force = new Vector3(-100, 300, 0);
+        if (boatName == validBoatNames[0])
+        {
+            force = new Vector3(-50, 150, 0);
+        }
+        GetComponent<Rigidbody>().AddForce(force);
+        GetComponent<Rigidbody>().AddTorque(new Vector3(0, 0, 500));
     }
 }

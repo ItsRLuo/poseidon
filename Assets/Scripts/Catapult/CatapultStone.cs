@@ -13,8 +13,13 @@ public class CatapultStone : MonoBehaviour {
     float destroyDelay = 3f;
     bool isInvisible = false;
 
+    bool isDestroyed = false;
+
     [SerializeField]
     private GameObject particleSystem;
+    [SerializeField]
+    private GameObject explosion;
+
 
     private void Start()
     {
@@ -44,8 +49,12 @@ public class CatapultStone : MonoBehaviour {
         {
             if ((isInvisible && destroyTimer >= destroyDelay) || destroyTimer >= destroyDelay * 3)
             {
-                Destroy(arc);
-                Destroy(gameObject);
+                if (isDestroyed == false)
+                {
+                    isDestroyed = true;
+                    Destroy(arc);
+                    Destroy(gameObject);
+                }
             }
         }
     } 
@@ -61,15 +70,17 @@ public class CatapultStone : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 4)
+        if (isDestroyed == true)
         {
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            gameObject.layer = 8;
-            gameObject.GetComponent<SphereCollider>().isTrigger = false;
-            if (particleSystem != null)
-            {
-                particleSystem.GetComponent<ParticleSystem>().Stop(); 
-            }
+            return;
+        }
+        BoatController boatController = other.gameObject.GetComponent<BoatController>();
+
+        if (other.gameObject.layer == 4 || boatController != null)
+        {
+            Instantiate(explosion, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+            isDestroyed = true;
         }
     }
 }
