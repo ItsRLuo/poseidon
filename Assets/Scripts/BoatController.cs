@@ -113,8 +113,8 @@ public class BoatController : MonoBehaviour
             scoreManager.SinkBoatOfType(boatName);
         }
 
-        int randomChange = UnityEngine.Random.Range(0, 10);
-        if (randomChange == 0) {
+        int randomChance = UnityEngine.Random.Range(0, 5);
+        if (randomChance == 0) {
             SoundManager soundManager = FindObjectOfType<SoundManager>();
 			if (soundManager != null) soundManager.PlayRandomClip();
         }
