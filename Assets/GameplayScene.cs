@@ -77,10 +77,19 @@ public class GameplayScene : MonoBehaviour
 
                         boat.Smoke();
                         boat.Sink();
+
+                        this.Camera.clearFlags = CameraClearFlags.Color;
+                        StartCoroutine(RestoreSkyBox());
                     }
                 }
             }
         }
+    }
+
+    private IEnumerator RestoreSkyBox()
+    {
+        yield return new WaitForSeconds(0.25f);
+        this.Camera.clearFlags = CameraClearFlags.Skybox;
     }
 
     public void AddDamage(float damage)
