@@ -8,7 +8,8 @@ public class GameplayScene : MonoBehaviour
     public GameObject LightningPrefab;
 
     public Slider TowerHealthSlider;
-    public Transform TowerLocation;
+    public Transform TowerLocationStart;
+    public Transform TowerLocationEnd;
     public Camera Camera;
     public int TowerHealth = 1;
 
@@ -18,26 +19,32 @@ public class GameplayScene : MonoBehaviour
     public void Start()
     {
         #region Initialize tower health slider
-        Vector2 viewportPosition = this.Camera.WorldToScreenPoint(this.TowerLocation.position);
+        Vector2 viewportPosition_start = this.Camera.WorldToScreenPoint(this.TowerLocationStart.position);
+        Vector2 viewportPosition_end = this.Camera.WorldToScreenPoint(this.TowerLocationEnd.position);
 
-        Debug.Log(viewportPosition);
         this.TowerHealthSlider.value = this.TowerHealth;
         RectTransform rt = this.TowerHealthSlider.GetComponent<RectTransform>();
-        rt.anchoredPosition3D = new Vector3(viewportPosition.x, viewportPosition.y, 0);
+        rt.sizeDelta = new Vector2(viewportPosition_end.x - viewportPosition_start.x, rt.sizeDelta.y);
+        rt.anchoredPosition3D = new Vector3(viewportPosition_start.x + rt.sizeDelta.x / 2, viewportPosition_start.y, 0);
         #endregion
 
         lightningChargeMeter = LightningMeterPrefab.GetComponentsInChildren<Meter>()[0];
     }
 
-    public void Update() {
-        if (lightningChargeMeter.Full()) {
-            if (Input.GetKeyDown(KeyCode.Space)) {
+    public void Update()
+    {
+        if (lightningChargeMeter.Full())
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
                 lightningChargeMeter.Deplete();
 
                 BoatController[] boats = GameObject.FindObjectsOfType<BoatController>();
 
-                foreach (BoatController boat in boats) {
-                    if (!boat.Sinking) {
+                foreach (BoatController boat in boats)
+                {
+                    if (!boat.Sinking)
+                    {
                         GameObject go = GameObject.Instantiate(LightningPrefab);
                         Lightning l = go.GetComponent<Lightning>();
                         var p = boat.transform.position;
@@ -52,7 +59,6 @@ public class GameplayScene : MonoBehaviour
                     }
                 }
             }
-
         }
     }
 }
