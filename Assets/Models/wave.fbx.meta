@@ -101,7 +101,7 @@ ModelImporter:
     4300026: Cloud_Big
     4300028: Cloud_Tiny
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
