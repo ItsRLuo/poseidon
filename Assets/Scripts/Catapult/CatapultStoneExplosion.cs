@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class CatapultStoneExplosion : MonoBehaviour {
 
-    float destroyTimer = 0;
-    float destroyDelay = 1f;
+    float timer = 0;
+    float destroyDelay = 2f;
+    float dangerDelay = 0.5f;
+
 
     bool isDangerous = true;
     bool isDestroyed = false;
@@ -25,17 +27,17 @@ public class CatapultStoneExplosion : MonoBehaviour {
 
     private void Update()
     {
-        if (destroyTimer < destroyDelay * 2)
+        if (timer < destroyDelay)
         {
-            destroyTimer += Time.deltaTime;
+            timer += Time.deltaTime;
         }
-        if (isDangerous == true && destroyTimer >= destroyDelay)
+        if (isDangerous == true && timer >= dangerDelay)
         {
             isDangerous = false;
             gameObject.GetComponent<SphereCollider>().enabled = false;
 
         }
-        if (isDestroyed == false && destroyTimer >= destroyDelay * 2)
+        if (isDestroyed == false && timer >= destroyDelay)
         {
             isDestroyed = true;
             Destroy(gameObject);

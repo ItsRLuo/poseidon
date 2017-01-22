@@ -63,6 +63,12 @@ public class BoatController : MonoBehaviour
 
     public void Sink()
     {
+        float randomTorqueX = UnityEngine.Random.Range(-50, 50);
+        float randomTorqueY = UnityEngine.Random.Range(-50, 50);
+        float randomTorqueZ = UnityEngine.Random.Range(-10, 10);
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        GetComponent<Rigidbody>().AddTorque(new Vector3(randomTorqueX, randomTorqueY, randomTorqueZ));
+
         IsSinking = true;
 
         if (IsExploding == false)
@@ -97,13 +103,21 @@ public class BoatController : MonoBehaviour
 
     public void Explode(Vector3 explosionPosition)
     {
+        float randomForceX = UnityEngine.Random.Range(-100, -50);
+        float randomForceY = UnityEngine.Random.Range(100, 300);
+
+        float randomTorqueX = UnityEngine.Random.Range(-150, 150);
+        float randomTorqueY = UnityEngine.Random.Range(-150, 150);
+        float randomTorqueZ = UnityEngine.Random.Range(-500, 500);
+
         IsExploding = true;
-        Vector3 force = new Vector3(-100, 300, 0);
+        Vector3 force = new Vector3(randomForceX, randomForceY, 0);
         if (boatName == validBoatNames[0])
         {
-            force = new Vector3(-50, 150, 0);
+            force = force * 0.5f;
         }
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         GetComponent<Rigidbody>().AddForce(force);
-        GetComponent<Rigidbody>().AddTorque(new Vector3(0, 0, 500));
+        GetComponent<Rigidbody>().AddTorque(new Vector3(randomTorqueX, randomTorqueY, randomTorqueZ));
     }
 }
