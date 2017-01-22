@@ -42,7 +42,11 @@ public class Meter : MonoBehaviour {
 			this.energyBar.transform.localPosition.z
 		);
 
-		this.energyBar.transform.localPosition = Vector3.Lerp(this.energyBar.transform.localPosition, newPos, 0.5f);
+		if (this.energy >= 20) {
+			this.energyBar.transform.localPosition = Vector3.Lerp(this.energyBar.transform.localPosition, newPos, 0.8f);
+		} else {
+			this.energyBar.transform.localPosition = newPos;
+		}
 		this.energyBar.transform.localScale = newScale;
 	}
 
