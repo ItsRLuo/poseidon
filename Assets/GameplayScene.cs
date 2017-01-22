@@ -11,7 +11,6 @@ public class GameplayScene : MonoBehaviour
     public Transform TowerLocationStart;
     public Transform TowerLocationEnd;
     public Camera Camera;
-    public int TowerHealth = 1;
 
     public GameObject LightningMeterPrefab;
     Meter lightningChargeMeter;
@@ -22,7 +21,7 @@ public class GameplayScene : MonoBehaviour
         Vector2 viewportPosition_start = this.Camera.WorldToScreenPoint(this.TowerLocationStart.position);
         Vector2 viewportPosition_end = this.Camera.WorldToScreenPoint(this.TowerLocationEnd.position);
 
-        this.TowerHealthSlider.value = this.TowerHealth;
+        this.TowerHealthSlider.value = 1;
         RectTransform rt = this.TowerHealthSlider.GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(viewportPosition_end.x - viewportPosition_start.x, rt.sizeDelta.y);
         rt.anchoredPosition3D = new Vector3(viewportPosition_start.x + rt.sizeDelta.x / 2, viewportPosition_start.y, 0);
@@ -59,6 +58,16 @@ public class GameplayScene : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    public void AddDamage(float damage)
+    {
+        Debug.Log(string.Format("Decrease by {0}", damage));
+        this.TowerHealthSlider.value = Mathf.Max(0, this.TowerHealthSlider.value - damage);
+        if (this.TowerHealthSlider.value == 0)
+        {
+            Debug.Log("You lose!");
         }
     }
 }
