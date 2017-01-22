@@ -46,6 +46,7 @@ public class BoatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsSinking || IsExploding) { return; }
         gameObject.transform.position += Velocity * Time.deltaTime;
     }
 
@@ -67,6 +68,10 @@ public class BoatController : MonoBehaviour
         if (IsExploding == false)
         {
             GetComponent<Rigidbody>().drag = 6f;
+        }
+        else
+        {
+            GetComponent<Rigidbody>().drag = 0;
         }
 
         gameObject.layer = SINKING_LAYER;
