@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Meter : MonoBehaviour {
 	public int energy = 100;
-	public int refillAmt = 1;
+	public int refillAmt = 10;
 	public int drainStepAmt = 3;
 
 	public MeshFilter container;
@@ -20,11 +20,6 @@ public class Meter : MonoBehaviour {
 		this.energy = (int) Mathf.Max(this.energy - dropAmount, 0);
 	}
 
-	void FillEnergy() {
-		this.energy += this.refillAmt;
-		this.energy = (int) Mathf.Min(this.energy, MAX_ENERGY);
-	}
-
 	// Use this for initialization
 	void Start () {
 	}
@@ -32,8 +27,6 @@ public class Meter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		this.energy = (int) Mathf.Max(this.energy, 0);
-
-		FillEnergy();
 		draw();
 	}
 
@@ -57,8 +50,12 @@ public class Meter : MonoBehaviour {
 		return this.energy == MAX_ENERGY;
 	}
 
+	public void Refill() {
+		this.energy += this.refillAmt;
+		this.energy = (int) Mathf.Min(this.energy, MAX_ENERGY);
+	}
+
 	public void Deplete() {
-        Debug.Log("????");
 		this.energy = 0;
 	}
 }

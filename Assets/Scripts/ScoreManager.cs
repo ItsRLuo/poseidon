@@ -45,6 +45,9 @@ public class ScoreManager : MonoBehaviour
             newScore.GetComponent<ScoreBehavior>().Color = Color.green;
         }
         currentScore += score * currentMultiplyer;
+
+		var meter = FindObjectOfType<Meter>();
+		if (meter != null) meter.Refill();
     }
 
     public void MultiplyerAtPointForDuration(Vector3 point, int multiplyer, float duration)
