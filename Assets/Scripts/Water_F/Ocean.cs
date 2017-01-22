@@ -71,9 +71,32 @@ public class Ocean : MonoBehaviour {
 
     void MouseEvent(string type, int fingerId, Vector2 touchPosition)
     {
-        Vector3 mousePosition = mainCamera.ScreenToWorldPoint(touchPosition);
-        Vector3 screenPosition = touchPosition;
-        Vector3 newPosition = new Vector3(mousePosition.x, mousePosition.y, -2);
+        Vector3 mousePosition;
+        Vector3 screenPosition;
+        Vector3 newPosition;
+
+        if (mainCamera.orthographic == false)
+        {
+            Ray ray = mainCamera.ScreenPointToRay(new Vector3(touchPosition.x, touchPosition.y, 0));
+            RaycastHit hit;
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.yellow);
+            if (Physics.Raycast(ray, out hit, 100, 1 << 9))
+            {
+                mousePosition = hit.point;
+                screenPosition = hit.point;
+                newPosition = hit.point;
+            }
+            else
+            {
+                return;
+            }
+        }
+        else
+        {
+            mousePosition = mainCamera.ScreenToWorldPoint(touchPosition);
+            screenPosition = touchPosition;
+            newPosition = new Vector3(mousePosition.x, mousePosition.y, -2);
+        }
 
         if (type == "Down")
         {
