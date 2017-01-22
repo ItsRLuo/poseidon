@@ -41,7 +41,7 @@ public class Ocean : MonoBehaviour {
 
     private void Update()
     {
-        //  If Game is paused, return
+        if (Time.timeScale < 1) { return; }
         CheckDrag();
         SmoothWave();
     }
