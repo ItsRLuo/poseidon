@@ -8,7 +8,7 @@ public class ScoreLabel : MonoBehaviour {
 
 	void Start () {
 		int score = PlayerPrefs.GetInt (Boatname, 0);
-		gameObject.GetComponent<Text> ().text = score.ToString();
+		gameObject.GetComponent<Text> ().text = "X   "+ score.ToString();
 
 	}
 
