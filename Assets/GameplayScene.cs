@@ -11,6 +11,10 @@ public class GameplayScene : MonoBehaviour
     public Transform TowerLocationStart;
     public Transform TowerLocationEnd;
     public Camera Camera;
+    public RectTransform GameOverPanel;
+    public BoatSpawner BoatSpawner;
+    public Catapult Catapult;
+    public GameObject MeterContainer;
 
     public GameObject LightningMeterPrefab;
     Meter lightningChargeMeter;
@@ -63,11 +67,13 @@ public class GameplayScene : MonoBehaviour
 
     public void AddDamage(float damage)
     {
-        Debug.Log(string.Format("Decrease by {0}", damage));
         this.TowerHealthSlider.value = Mathf.Max(0, this.TowerHealthSlider.value - damage);
         if (this.TowerHealthSlider.value == 0)
         {
-            Debug.Log("You lose!");
+            this.GameOverPanel.gameObject.SetActive(true);
+            this.BoatSpawner.gameObject.SetActive(false);
+            this.Catapult.gameObject.SetActive(false);
+            this.MeterContainer.SetActive(false);
         }
     }
 }

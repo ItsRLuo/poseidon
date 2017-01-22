@@ -17,7 +17,7 @@ public class TowerDamageDetector : MonoBehaviour
         BoatController bc = collider.gameObject.GetComponent<BoatController>();
         if (bc != null && !bc.Sinking)
         {
-            this.GameplayScene.AddDamage(bc.Points / 1500.0f);
+            this.GameplayScene.AddDamage(bc.Points / 500.0f);
         }
     }
 }
