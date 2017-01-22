@@ -12,14 +12,12 @@ public class Meter : MonoBehaviour {
 
 	const int MAX_ENERGY = 100;
 
-	int drainAmt = 0;
-
 	public int Energy {
 		get { return energy; }
 	}
 
 	void DrainEnergy(int dropAmount) {
-		this.energy = (int) Mathf.Min(this.energy - dropAmount, 0);
+		this.energy = (int) Mathf.Max(this.energy - dropAmount, 0);
 	}
 
 	void FillEnergy() {
@@ -33,14 +31,6 @@ public class Meter : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetMouseButtonDown(0)) {
-			this.drainAmt = drainStepAmt;
-		}
-		if (Input.GetMouseButtonUp(0)) {
-			this.drainAmt = 0;
-		}
-
-		this.energy -= this.drainAmt;
 		this.energy = (int) Mathf.Max(this.energy, 0);
 
 		FillEnergy();
@@ -61,5 +51,14 @@ public class Meter : MonoBehaviour {
 
 		this.energyBar.transform.localPosition = newPos;
 		this.energyBar.transform.localScale = newScale;
+	}
+
+	public bool Full() {
+		return this.energy == MAX_ENERGY;
+	}
+
+	public void Deplete() {
+        Debug.Log("????");
+		this.energy = 0;
 	}
 }
