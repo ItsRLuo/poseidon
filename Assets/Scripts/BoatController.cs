@@ -75,7 +75,11 @@ public class BoatController : MonoBehaviour
         get { return IsSinking; }
     }
 
-    public void Sink()
+    public void Sink() {
+        Sink(true);
+    }
+
+    public void Sink(bool scoreIt)
     {
         if (IsSinking)
         {
@@ -106,10 +110,13 @@ public class BoatController : MonoBehaviour
         }
 
         ScoreManager sm = FindObjectOfType<ScoreManager>();
-        if (sm != null)
-        {
+        if (sm != null) {
             ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
-            scoreManager.ScoreAtPoint(transform.position, Points);
+
+            if (scoreIt) {
+                scoreManager.ScoreAtPoint(transform.position, Points);
+            }
+
             scoreManager.SinkBoatOfType(boatName);
         }
 

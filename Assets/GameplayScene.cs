@@ -76,7 +76,7 @@ public class GameplayScene : MonoBehaviour
                         l.StartPosition = p;
 
                         boat.Smoke();
-                        boat.Sink();
+                        boat.Sink(false);
 
                         this.Camera.clearFlags = CameraClearFlags.Color;
                         StartCoroutine(RestoreSkyBox());
