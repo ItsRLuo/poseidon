@@ -36,12 +36,22 @@ public class GameplayScene : MonoBehaviour
 
     public void Update()
     {
-        if (lightningChargeMeter.Full())
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                lightningChargeMeter.Deplete();
+        if (lightningChargeMeter.Full()) {
+            bool executeAll = false;
 
+            if (Input.GetMouseButtonDown(0)) {
+                RaycastHit hit;
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, 100.0f)) {
+                    if (hit.transform.name.Contains("Cube")) {
+                        executeAll = true;
+                    }
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) || executeAll) {
+                lightningChargeMeter.Deplete();
                 BoatController[] boats = GameObject.FindObjectsOfType<BoatController>();
 
                 foreach (BoatController boat in boats)
