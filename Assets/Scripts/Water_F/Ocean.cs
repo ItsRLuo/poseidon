@@ -15,7 +15,7 @@ public class Ocean : MonoBehaviour {
     private GameObject launchAnimationPrefab;
     private GameObject targetingBar;
 
-    private int screenWidth = 180;
+    private int screenWidth = 250;
     private int screenHeight = 20;
 
     GameObject[] waterArray;
