@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadSceneOnClick : MonoBehaviour {
 
 	// Use this for initialization
-	void LoadByName()
+	public void LoadByName()
 	{
 		SceneManager.LoadScene("Water_Boat");
 }
