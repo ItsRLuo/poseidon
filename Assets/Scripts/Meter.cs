@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Meter : MonoBehaviour {
 	public int energy = 100;
-	public int refillAmt = 10;
+	public int refillAmt = 25;
 	public int drainStepAmt = 3;
 
 	public MeshFilter container;
