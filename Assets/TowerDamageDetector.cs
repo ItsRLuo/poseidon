@@ -28,6 +28,7 @@ public class TowerDamageDetector : MonoBehaviour
         CameraShake.Shake(0.25f, bc.Points / 200.0f);
 
         soundManager.PlayTakeDamage();
+        Destroy(bc.gameObject);
     }
 
     public void OnTriggerEnter(Collider collider)
