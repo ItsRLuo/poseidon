@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ public class ScoreManager : MonoBehaviour
 {
     public Camera Camera;
     public Text ScoreFloatingPrefab;
+    public Action<int> OnScoreChanged;
 
     private int currentScore;
     private int currentMultiplyer = 1;
@@ -46,8 +48,13 @@ public class ScoreManager : MonoBehaviour
         }
         currentScore += score * currentMultiplyer;
 
-		var meter = FindObjectOfType<Meter>();
-		if (meter != null) meter.Refill();
+        if (this.OnScoreChanged != null)
+        {
+            this.OnScoreChanged(this.currentScore);
+        }
+
+        var meter = FindObjectOfType<Meter>();
+        if (meter != null) meter.Refill();
     }
 
     public void MultiplyerAtPointForDuration(Vector3 point, int multiplyer, float duration)

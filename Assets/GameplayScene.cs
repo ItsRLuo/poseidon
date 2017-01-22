@@ -15,6 +15,8 @@ public class GameplayScene : MonoBehaviour
     public BoatSpawner BoatSpawner;
     public Catapult Catapult;
     public GameObject MeterContainer;
+    public ScoreManager ScoreManager;
+    public Text ScoreText;
 
     public GameObject LightningMeterPrefab;
     Meter lightningChargeMeter;
@@ -32,6 +34,9 @@ public class GameplayScene : MonoBehaviour
         #endregion
 
         lightningChargeMeter = LightningMeterPrefab.GetComponentsInChildren<Meter>()[0];
+
+        this.ScoreManager.OnScoreChanged +=
+            score => this.ScoreText.text = score.ToString();
     }
 
     public void Update()
