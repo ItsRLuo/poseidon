@@ -27,5 +27,7 @@ public class BoatController : MonoBehaviour
         GetComponent<Rigidbody>().drag = 6f;
         gameObject.layer = SINKING_LAYER;
         Debug.Log("Glug glug glug");
+
+        FindObjectOfType<ScoreManager>().ScoreAtPoint(transform.position, 10);
     }
 }
