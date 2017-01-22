@@ -28,6 +28,7 @@ ModelImporter:
     100040: Cloud_Small.001
     100042: Cloud_Big
     100044: Cloud_Tiny
+    100046: Hill
     400000: Camera
     400002: Camera.001
     400004: Hemi
@@ -51,6 +52,7 @@ ModelImporter:
     400040: Cloud_Small.001
     400042: Cloud_Big
     400044: Cloud_Tiny
+    400046: Hill
     2300000: Land
     2300002: RowBoat
     2300004: Sail_Big-Ship_BigLong
@@ -68,6 +70,7 @@ ModelImporter:
     2300028: Cloud_Small.001
     2300030: Cloud_Big
     2300032: Cloud_Tiny
+    2300034: Hill
     3300000: Land
     3300002: RowBoat
     3300004: Sail_Big-Ship_BigLong
@@ -85,6 +88,7 @@ ModelImporter:
     3300028: Cloud_Small.001
     3300030: Cloud_Big
     3300032: Cloud_Tiny
+    3300034: Hill
     4300000: Tree_Small
     4300002: Tree
     4300004: Sail_Big-Ship_BigLong.002
@@ -100,6 +104,7 @@ ModelImporter:
     4300024: Cloud_Small.001
     4300026: Cloud_Big
     4300028: Cloud_Tiny
+    4300030: Hill
   materials:
     importMaterials: 0
     materialName: 0
