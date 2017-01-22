@@ -5,6 +5,7 @@ using UnityEngine;
 public class TowerDamageDetector : MonoBehaviour
 {
     public GameplayScene GameplayScene;
+    public GameObject ExplosionPrefab;
 
     public void Start()
     { }
@@ -12,12 +13,19 @@ public class TowerDamageDetector : MonoBehaviour
     public void Update()
     { }
 
+	IEnumerator AnimateExplosion(BoatController bc) {
+		yield return new WaitForSeconds(1.2f);
+		var explosion = GameObject.Instantiate<GameObject>(ExplosionPrefab);
+        explosion.transform.position = bc.transform.position;
+        this.GameplayScene.AddDamage(bc.Points / 500.0f);
+	}
+
     public void OnTriggerEnter(Collider collider)
     {
         BoatController bc = collider.gameObject.GetComponent<BoatController>();
-        if (bc != null && !bc.Sinking)
-        {
-            this.GameplayScene.AddDamage(bc.Points / 500.0f);
+
+        if (bc != null && !bc.Sinking) {
+			StartCoroutine(AnimateExplosion(bc));
         }
     }
 }

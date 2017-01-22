@@ -1,10 +1,14 @@
 fileFormatVersion: 2
 guid: 5ffa06e18a773ea4aada2e301fa2e91f
-timeCreated: 1485034291
+timeCreated: 1485103097
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - SplashClip: {instanceID: 0}
+  - AudioSource: {instanceID: 0}
+  - SmokePS: {instanceID: 0}
+  - ExplosionPrefab: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

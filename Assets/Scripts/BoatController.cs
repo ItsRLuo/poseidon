@@ -16,6 +16,7 @@ public class BoatController : MonoBehaviour
     public AudioSource AudioSource;
     public int Points;
     public ParticleSystem SmokePS;
+    public GameObject ExplosionPrefab;
 
     void OnCollisionEnter(Collision collision)
     {
