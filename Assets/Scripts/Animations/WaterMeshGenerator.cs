@@ -106,7 +106,7 @@ public class WaterMeshGenerator : MonoBehaviour
 				continue;
 			}
 
-			var x = (int)v.x * 10;
+			var x = (int)(v.x * 10);
 
 			var yChange = Mathf.PerlinNoise(v.x, Time.time * movementSpeed + v.z) - 0.5f;
 					yChange = yChange * amplitude + 
