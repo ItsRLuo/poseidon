@@ -8,6 +8,6 @@ public class LoadSceneOnClick : MonoBehaviour {
 	// Use this for initialization
 	public void LoadByName()
 	{
-		SceneManager.LoadScene("Water_Boat");
+		SceneManager.LoadScene("Gameplay");
 }
 }
