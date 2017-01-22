@@ -25,7 +25,6 @@ public class ScoreBehavior : MonoBehaviour
         }
 
         float t = timeElapsed / Lifetime;
-        Debug.Log(t);
 
         GetComponent<RectTransform>().anchoredPosition = InitialPos + t * new Vector2(0, InitialPos.y + MoveUpDistance);
         var newColor = Color;

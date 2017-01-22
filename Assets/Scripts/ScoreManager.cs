@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     public Text ScoreFloatingPrefab;
 
     private int currentScore;
-    private int currentMultiplyer;
+    private int currentMultiplyer = 1;
     private Coroutine currentMultiplyerCoroutine;
 
     public int CurrentScore
@@ -32,12 +32,14 @@ public class ScoreManager : MonoBehaviour
 
     public void ScoreAtPoint(Vector3 point, int score)
     {
+        Debug.Log("score " + score);
+
         var screenPoint = canvasPointFromWorldPoint(point);
         var newScore = Instantiate(ScoreFloatingPrefab);
         newScore.transform.position = screenPoint;
         newScore.GetComponent<ScoreBehavior>().InitialPos = screenPoint;
         newScore.text = "" + score * currentMultiplyer;
-        newScore.rectTransform.parent = GetComponent<RectTransform>();
+        newScore.rectTransform.SetParent(GetComponent<RectTransform>(), false);
         if (currentMultiplyer > 1)
         {
             newScore.GetComponent<ScoreBehavior>().Color = Color.green;
