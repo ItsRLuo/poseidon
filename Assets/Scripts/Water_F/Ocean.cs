@@ -23,6 +23,9 @@ public class Ocean : MonoBehaviour {
 
     private float dropoff = 0.98f;
 
+    private float wavePower = 4;
+
+
     void Start()
     {
         waterParent = new GameObject("_WaterParent").transform;
@@ -36,55 +39,25 @@ public class Ocean : MonoBehaviour {
 
     private void Update()
     {
+        //  If Game is paused, return
         CheckDrag();
-        return;
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 targetPoint = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            int targetX = (int)targetPoint.x * 10;
-            float targetY = targetPoint.y;
-
-            if (targetX >= 0 && targetX <= screenWidth)
-            {
-                AddForce(targetX, 30);
-            }
-        }
+        SmoothWave();
     }
 
     private void CheckDrag()
     {
-        if (Input.touchCount > 0)
+
+        if (Input.GetButtonDown("Fire1"))
         {
-            foreach (Touch touch in Input.touches)
-            {
-                if (touch.phase == TouchPhase.Began)
-                {
-                    MouseEvent("Down", touch.fingerId, touch.position);
-                }
-                else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
-                {
-                    MouseEvent("Up", touch.fingerId, touch.position);
-                }
-                else if (touch.phase == TouchPhase.Moved)
-                {
-                    MouseEvent("Move", touch.fingerId, touch.position);
-                }
-            }
+            MouseEvent("Down", 0, Input.mousePosition);
         }
-        else
+        else if (Input.GetButtonUp("Fire1"))
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                MouseEvent("Down", 0, Input.mousePosition);
-            }
-            else if (Input.GetButtonUp("Fire1"))
-            {
-                MouseEvent("Up", 0, Input.mousePosition);
-            }
-            else if (Input.GetButton("Fire1"))
-            {
-                MouseEvent("Move", 0, Input.mousePosition);
-            }
+            MouseEvent("Up", 0, Input.mousePosition);
+        }
+        else if (Input.GetButton("Fire1"))
+        {
+            MouseEvent("Move", 0, Input.mousePosition);
         }
     }
 
@@ -111,11 +84,9 @@ public class Ocean : MonoBehaviour {
                 GameObject launchAnimation = GameObject.Instantiate(launchAnimationPrefab, newPosition, Quaternion.identity) as GameObject;
                 launchAnimation.GetComponent<LaunchAnimation>().SetEndPosition(startPosition);
                 Destroy(targetingBar);
-                float force = (startPosition.y - newPosition.y) * 4;
-                //if (startPosition.y < newPosition.y)
-                //{
-                //    force *= -1;
-                //}
+                float force = (startPosition.y - newPosition.y) * wavePower;
+                float forceX = startPosition.x - newPosition.x;
+
                 AddForce((int)startPosition.x * 10, force);
             }
 
@@ -158,8 +129,21 @@ public class Ocean : MonoBehaviour {
             {
                 waterPixelArray[startingPixel - i].AddForce(force);
             }
-            //force = force - Mathf.Pow(i * 0.03f, 2) / 5;
             force *= dropoff;
         }
+    }
+
+    void SmoothWave()
+    {
+        for (int i = 0; i <= screenWidth - 4; i++)
+        {
+            if (waterArray[i].transform.position.y > waterArray[i + 1].transform.position.y + 0.01f ||
+                waterArray[i].transform.position.y < waterArray[i + 1].transform.position.y - 0.01f)
+            {
+                float averageY = (waterArray[i].transform.position.y + waterArray[i + 1].transform.position.y) / 2;
+                waterArray[i + 1].transform.position = new Vector3(waterArray[i + 1].transform.position.x, averageY, waterArray[i + 1].transform.position.z);
+            }
+        }
+
     }
 }
