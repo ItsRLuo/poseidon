@@ -77,7 +77,7 @@ public class BoatController : MonoBehaviour
 
     public void Sink()
     {
-        if (IsSinking || IsExploding)
+        if (IsSinking)
         {
             return;
         }
