@@ -97,10 +97,10 @@ public class CloudFactory : MonoBehaviour {
 	void OnDrawGizmos()
 	{
 		var p = transform.position;
-		Gizmos.DrawLine(p, p - transform.right * width);
-		p += Vector3.up * maxSpawnHeight;
-		Gizmos.DrawLine(p, p - transform.right * width);
-		p += Vector3.down * (maxSpawnHeight - minSpawnHeight);
-		Gizmos.DrawLine(p, p - transform.right * width);
+		Gizmos.DrawLine(p, p - transform.right * width * transform.localScale.x);
+		p += Vector3.up * maxSpawnHeight * transform.localScale.y;
+		Gizmos.DrawLine(p, p - transform.right * width * transform.localScale.x);
+		p += Vector3.down * (maxSpawnHeight - minSpawnHeight) * transform.localScale.y;
+		Gizmos.DrawLine(p, p - transform.right * width * transform.localScale.x);
 	}
 }
