@@ -48,6 +48,13 @@ public class ScoreManager : MonoBehaviour
 
 		var meter = FindObjectOfType<Meter>();
 		if (meter != null) meter.Refill();
+
+        // Check for high score
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (currentScore > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", currentScore);
+        }
     }
 
     public void MultiplyerAtPointForDuration(Vector3 point, int multiplyer, float duration)
