@@ -23,6 +23,11 @@ ModelImporter:
     100030: Tree_Small
     100032: Water
     100034: //RootNode
+    100036: Icosphere
+    100038: Cloud_Small
+    100040: Cloud_Small.001
+    100042: Cloud_Big
+    100044: Cloud_Tiny
     400000: Camera
     400002: Camera.001
     400004: Hemi
@@ -41,6 +46,11 @@ ModelImporter:
     400030: Tree_Small
     400032: Water
     400034: //RootNode
+    400036: Icosphere
+    400038: Cloud_Small
+    400040: Cloud_Small.001
+    400042: Cloud_Big
+    400044: Cloud_Tiny
     2300000: Land
     2300002: RowBoat
     2300004: Sail_Big-Ship_BigLong
@@ -53,6 +63,11 @@ ModelImporter:
     2300018: Tree
     2300020: Tree_Small
     2300022: Water
+    2300024: Icosphere
+    2300026: Cloud_Small
+    2300028: Cloud_Small.001
+    2300030: Cloud_Big
+    2300032: Cloud_Tiny
     3300000: Land
     3300002: RowBoat
     3300004: Sail_Big-Ship_BigLong
@@ -65,6 +80,11 @@ ModelImporter:
     3300018: Tree
     3300020: Tree_Small
     3300022: Water
+    3300024: Icosphere
+    3300026: Cloud_Small
+    3300028: Cloud_Small.001
+    3300030: Cloud_Big
+    3300032: Cloud_Tiny
     4300000: Tree_Small
     4300002: Tree
     4300004: Sail_Big-Ship_BigLong.002
@@ -75,6 +95,11 @@ ModelImporter:
     4300014: Ship_BigLong
     4300016: Land
     4300018: Water
+    4300020: Icosphere
+    4300022: Cloud_Small
+    4300024: Cloud_Small.001
+    4300026: Cloud_Big
+    4300028: Cloud_Tiny
   materials:
     importMaterials: 1
     materialName: 0
