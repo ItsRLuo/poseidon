@@ -13,6 +13,9 @@ public class BoatController : MonoBehaviour
     private bool playedSplash;
     private bool IsSinking = false;
     private bool IsExploding = false;
+    private float sinkingTime;
+    private const float TimeToSinkShrink = 6f;
+    private Vector3 naturalScale;
 
     public AudioClip SplashClip;
     public AudioSource AudioSource;
@@ -25,6 +28,7 @@ public class BoatController : MonoBehaviour
 
     private void Awake()
     {
+        naturalScale = transform.localScale;
         if (validBoatNames.Contains<string>(boatName) == false)
         {
             boatName = validBoatNames[0];
@@ -46,6 +50,16 @@ public class BoatController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (IsSinking)
+        {
+            float t = sinkingTime / TimeToSinkShrink;
+            if (t < 1)
+            {
+                gameObject.transform.localScale = (1 - t) * naturalScale;
+                sinkingTime += Time.deltaTime;
+            }
+        }
+
         if (IsSinking || IsExploding) { return; }
         gameObject.transform.position += Velocity * Time.deltaTime;
     }
