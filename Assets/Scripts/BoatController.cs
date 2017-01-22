@@ -77,6 +77,11 @@ public class BoatController : MonoBehaviour
 
     public void Sink()
     {
+        if (IsSinking)
+        {
+            return;
+        }
+
         float randomTorqueX = UnityEngine.Random.Range(-50, 50);
         float randomTorqueY = UnityEngine.Random.Range(-50, 50);
         float randomTorqueZ = UnityEngine.Random.Range(-10, 10);
@@ -108,8 +113,8 @@ public class BoatController : MonoBehaviour
             scoreManager.SinkBoatOfType(boatName);
         }
 
-        int randomChange = UnityEngine.Random.Range(0, 10);
-        if (randomChange == 0) {
+        int randomChance = UnityEngine.Random.Range(0, 5);
+        if (randomChance == 0) {
             SoundManager soundManager = FindObjectOfType<SoundManager>();
 			if (soundManager != null) soundManager.PlayRandomClip();
         }

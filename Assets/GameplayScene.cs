@@ -44,7 +44,7 @@ public class GameplayScene : MonoBehaviour
         rt.anchoredPosition3D = new Vector3(viewportPosition_start.x + rt.sizeDelta.x / 2, viewportPosition_start.y, 0);
         #endregion
 
-        if (lightningChargeMeter.Full()) {
+        if (lightningChargeMeter.Full() && !this.died) {
             bool executeAll = false;
 
             if (Input.GetMouseButtonDown(0)) {
@@ -77,10 +77,19 @@ public class GameplayScene : MonoBehaviour
 
                         boat.Smoke();
                         boat.Sink();
+
+                        this.Camera.clearFlags = CameraClearFlags.Color;
+                        StartCoroutine(RestoreSkyBox());
                     }
                 }
             }
         }
+    }
+
+    private IEnumerator RestoreSkyBox()
+    {
+        yield return new WaitForSeconds(0.25f);
+        this.Camera.clearFlags = CameraClearFlags.Skybox;
     }
 
     public void AddDamage(float damage)
