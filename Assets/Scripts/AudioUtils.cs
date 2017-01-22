@@ -11,6 +11,7 @@ public static class AudioUtils
         audioSource.clip = audioClip;
         audioSource.volume = 1;
         audioSource.time = 0;
+        audioSource.pitch = UnityEngine.Random.Range(0.75f, 1.25f);
         audioSource.Play();
     }
 }
