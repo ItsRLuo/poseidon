@@ -18,6 +18,8 @@ public class TowerDamageDetector : MonoBehaviour
 		var explosion = GameObject.Instantiate<GameObject>(ExplosionPrefab);
         explosion.transform.position = bc.transform.position;
         this.GameplayScene.AddDamage(bc.Points / 500.0f);
+
+        CameraShake.Shake(0.25f, bc.Points / 200.0f);
 	}
 
     public void OnTriggerEnter(Collider collider)
