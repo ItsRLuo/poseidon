@@ -6,24 +6,30 @@ public class BoatSinkingCollider : MonoBehaviour
 {
     const int WATER_LAYER = 4;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    // Use this for initialization
+    void Start()
     {
-		
-	}
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     void OnTriggerEnter(Collider collider)
     {
         //if (collider.GetComponent<WaterPixel>() != null)
         if (collider.gameObject.layer == WATER_LAYER)
         {
-            // we have hit the water in a bad way, time to die
-            GetComponentInParent<BoatController>().Sink();
+            BoatController b = GetComponentInParent<BoatController>();
+
+            if (b != null)
+            {
+                // we have hit the water in a bad way, time to die
+                b.Sink();
+            }
         }
     }
 }

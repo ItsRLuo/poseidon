@@ -48,6 +48,10 @@ public class BoatController : MonoBehaviour
             subComponent.gameObject.layer = SINKING_LAYER;
         }
 
-        FindObjectOfType<ScoreManager>().ScoreAtPoint(transform.position, Points);
+        ScoreManager sm = FindObjectOfType<ScoreManager>();
+        if (sm != null)
+        {
+            FindObjectOfType<ScoreManager>().ScoreAtPoint(transform.position, Points);
+        }
     }
 }

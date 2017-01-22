@@ -28,6 +28,8 @@ public class Ocean : MonoBehaviour {
 
     private int passDirection = 1;
 
+    public bool DisableInput; // for main menu
+
     void Start()
     {
         waterParent = new GameObject("_WaterParent").transform;
@@ -48,6 +50,10 @@ public class Ocean : MonoBehaviour {
 
     private void CheckDrag()
     {
+        if (this.DisableInput)
+        {
+            return;
+        }
 
         if (Input.GetButtonDown("Fire1"))
         {
