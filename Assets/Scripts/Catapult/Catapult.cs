@@ -16,16 +16,16 @@ public class Catapult : MonoBehaviour {
     private float yForce = 0;
 
     float fireTimer = 0;
-    float fireDelay = 3;
+    public float fireDelay = 3;
     float autoFireTimer = 0;
-    float autoFireDelay = 5;
+    public float autoFireDelay = 5;
 
     bool isStoneFiring = false;
 
     void Start () {
-		
+
 	}
-	
+
 	void Update () {
         if (isStoneFiring)
         {
