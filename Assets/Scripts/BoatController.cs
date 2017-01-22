@@ -78,5 +78,11 @@ public class BoatController : MonoBehaviour
             scoreManager.ScoreAtPoint(transform.position, Points);
             scoreManager.SinkBoatOfType(boatName);
         }
+
+        int randomChange = UnityEngine.Random.Range(0, 10);
+        if (randomChange == 0) {
+            SoundManager soundManager = FindObjectOfType<SoundManager>();
+            soundManager.PlayRandomClip();
+        }
     }
 }
