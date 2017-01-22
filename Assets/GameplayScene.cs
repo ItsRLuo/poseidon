@@ -25,9 +25,7 @@ public class GameplayScene : MonoBehaviour
         RectTransform rt = this.TowerHealthSlider.GetComponent<RectTransform>();
         rt.anchoredPosition3D = new Vector3(viewportPosition.x, viewportPosition.y, 0);
         #endregion
-    }
 
-    public void Start() {
         lightningChargeMeter = LightningMeterPrefab.GetComponentsInChildren<Meter>()[0];
     }
 
