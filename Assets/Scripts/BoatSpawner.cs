@@ -6,6 +6,8 @@ public class BoatSpawner : MonoBehaviour
 {
     public float BoatsPerSecond = 0.5f;
     public BoatController BoatPrefab;
+    public AudioSource AudioSource;
+    public AudioClip SplashClip;
 
 	// Use this for initialization
 	void Start ()
@@ -20,6 +22,8 @@ public class BoatSpawner : MonoBehaviour
         if (spawnProb > Random.value)
         {
             var boat = GameObject.Instantiate<BoatController>(BoatPrefab);
+            boat.AudioSource = this.AudioSource;
+            boat.SplashClip = this.SplashClip;
             boat.transform.position = transform.position;
         }
 	}

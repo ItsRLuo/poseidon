@@ -21,10 +21,12 @@ public class Ocean : MonoBehaviour {
     GameObject[] waterArray;
     WaterPixel[] waterPixelArray;
 
-    private float dropoff = 0.98f;
+    private float dropoff = 0.9f;
 
     private float wavePower = 4;
+    private float velocityMax = 8;
 
+    private int passDirection = 1;
 
     void Start()
     {
@@ -113,14 +115,14 @@ public class Ocean : MonoBehaviour {
 	
     void AddForce(int startingPixel, float force)
     {
-        if (waterPixelArray[startingPixel].GetVelocityMagnitude() > 8)
+        if (waterPixelArray[startingPixel].GetVelocityMagnitude() > velocityMax)
         {
             force *= 0.1f;
         }
             
         for (int i = 0; i <= screenWidth; i++)
         {
-
+            //if (i > 30) { return; }
             if (startingPixel + i <= screenWidth)
             {
                 waterPixelArray[startingPixel + i].AddForce(force);
@@ -135,15 +137,18 @@ public class Ocean : MonoBehaviour {
 
     void SmoothWave()
     {
+
         for (int i = 0; i <= screenWidth - 4; i++)
         {
-            if (waterArray[i].transform.position.y > waterArray[i + 1].transform.position.y + 0.01f ||
-                waterArray[i].transform.position.y < waterArray[i + 1].transform.position.y - 0.01f)
-            {
-                float averageY = (waterArray[i].transform.position.y + waterArray[i + 1].transform.position.y) / 2;
-                waterArray[i + 1].transform.position = new Vector3(waterArray[i + 1].transform.position.x, averageY, waterArray[i + 1].transform.position.z);
+            if (i + passDirection >= 0 && i + passDirection <= screenWidth) { 
+                if (waterArray[i].transform.position.y > waterArray[i + passDirection].transform.position.y + 0.01f ||
+                    waterArray[i].transform.position.y < waterArray[i + passDirection].transform.position.y - 0.01f)
+                {
+                    float averageY = (waterArray[i].transform.position.y + waterArray[i + passDirection].transform.position.y) / 2;
+                    waterArray[i + passDirection].transform.position = new Vector3(waterArray[i + passDirection].transform.position.x, averageY, waterArray[i + passDirection].transform.position.z);
+                }
             }
         }
-
+        passDirection *= -1;
     }
 }
