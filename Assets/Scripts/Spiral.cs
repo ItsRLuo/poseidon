@@ -6,6 +6,7 @@ using UnityEngine;
 public class Spiral : MonoBehaviour {
 	public float m_Drift = 0.01f;
 	public float LIFE_TIME = 0.01f;
+	public int maxParticles = 2;
 
 	ParticleSystem ps;
 	ParticleSystem.Particle[] m_Particles;
@@ -27,22 +28,16 @@ public class Spiral : MonoBehaviour {
 		for (int i = 0; i < numParticlesAlive; i++) {
 			float remainingLifeTime = m_Particles[i].remainingLifetime;
 
-			if (remainingLifeTime > 0.95 * LIFE_TIME) continue;
+			if (remainingLifeTime > 2.0f) {
+				// circleSize += timeDelta * circleGrowSpeed;
+				Vector3 newPos = new Vector3(
+					m_Particles[i].position.x,
+					remainingLifeTime * Mathf.Cos(Time.time * remainingLifeTime),
+					remainingLifeTime * Mathf.Sin(Time.time * remainingLifeTime)
+				);
 
-			remainingLifeTime += 0.01f; // prevent div by 0
-
-			var xPos = Mathf.Sin(Time.time * circleSpeed) * circleSize;
-			var yPos = Mathf.Cos(circleSpeed) * circleSize * (1/remainingLifeTime);
-			var zPos = Mathf.Sin(circleSpeed) * circleSize * (1/remainingLifeTime);
-
-			// circleSize += timeDelta * circleGrowSpeed;
-			Vector3 newPos = new Vector3(
-				m_Particles[i].position.x,
-				m_Particles[i].position.y + yPos,
-				m_Particles[i].position.z - zPos
-			);
-
-			m_Particles[i].position = newPos;
+				m_Particles[i].position = Vector3.Lerp(m_Particles[i].position, newPos, 0.85f * Time.deltaTime);
+			}
 		}
 
 		// Apply the particle changes to the particle system
@@ -55,6 +50,10 @@ public class Spiral : MonoBehaviour {
 		if (m_Particles == null || m_Particles.Length < ps.maxParticles)
 			m_Particles = new ParticleSystem.Particle[ps.maxParticles]; 
 	}
+
+	void Update() {
+		ParticleSystem.EmissionModule em = ps.emission;
+ 	}
 
 	// Update is called once per frame
 	void LateUpdate () {
