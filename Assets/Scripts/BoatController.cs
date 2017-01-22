@@ -77,6 +77,11 @@ public class BoatController : MonoBehaviour
 
     public void Sink()
     {
+        if (IsSinking)
+        {
+            return;
+        }
+
         float randomTorqueX = UnityEngine.Random.Range(-50, 50);
         float randomTorqueY = UnityEngine.Random.Range(-50, 50);
         float randomTorqueZ = UnityEngine.Random.Range(-10, 10);
