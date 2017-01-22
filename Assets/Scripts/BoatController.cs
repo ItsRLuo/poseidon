@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BoatController : MonoBehaviour
@@ -17,6 +18,17 @@ public class BoatController : MonoBehaviour
     public int Points;
     public ParticleSystem SmokePS;
     public GameObject ExplosionPrefab;
+
+    public string[] validBoatNames = { "Rowboat", "Warship" };
+    public string boatName;
+
+    private void Awake()
+    {
+        if (validBoatNames.Contains<string>(boatName) == false)
+        {
+            boatName = validBoatNames[0];
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -62,7 +74,9 @@ public class BoatController : MonoBehaviour
         ScoreManager sm = FindObjectOfType<ScoreManager>();
         if (sm != null)
         {
-            FindObjectOfType<ScoreManager>().ScoreAtPoint(transform.position, Points);
+            ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+            scoreManager.ScoreAtPoint(transform.position, Points);
+            scoreManager.SinkBoatOfType(boatName);
         }
     }
 }

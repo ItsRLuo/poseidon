@@ -66,4 +66,10 @@ public class ScoreManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         currentMultiplyer = 1;
     }
+
+    public void SinkBoatOfType(string boatName)
+    {
+        int currentValue = PlayerPrefs.GetInt(boatName, 0);
+        PlayerPrefs.SetInt(boatName, currentValue + 1);
+    }
 }
