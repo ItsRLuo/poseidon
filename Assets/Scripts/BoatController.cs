@@ -14,6 +14,7 @@ public class BoatController : MonoBehaviour
 
     public AudioClip SplashClip;
     public AudioSource AudioSource;
+    public int Points;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -47,6 +48,6 @@ public class BoatController : MonoBehaviour
             subComponent.gameObject.layer = SINKING_LAYER;
         }
 
-        FindObjectOfType<ScoreManager>().ScoreAtPoint(transform.position, 10);
+        FindObjectOfType<ScoreManager>().ScoreAtPoint(transform.position, Points);
     }
 }
