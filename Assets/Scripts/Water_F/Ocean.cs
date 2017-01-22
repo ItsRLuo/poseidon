@@ -119,6 +119,7 @@ public class Ocean : MonoBehaviour {
         newWater.transform.localScale = new Vector3(0.1f, screenHeight, 20);
         newWater.transform.parent = waterParent;
         newWater.name = ("Water_" + xPos);
+        newWater.GetComponent<Renderer>().enabled = false;
         waterArray[xPos] = newWater;
         waterPixelArray[xPos] = new WaterPixel();
         waterPixelArray[xPos].Setup(newWater);
@@ -162,4 +163,10 @@ public class Ocean : MonoBehaviour {
         }
         passDirection *= -1;
     }
+
+    // getter for mesh generation
+    public GameObject GetWaterPixel { get { return waterPixel; } }
+    public int GetScreenWidth { get { return screenWidth; } }
+    public int GetScreenHeight { get { return screenHeight; } }
+    public GameObject[] GetWaterArray { get { return waterArray; } }
 }

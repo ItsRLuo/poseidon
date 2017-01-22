@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class WaterAnimator : MonoBehaviour {
 
-	public float movementSpeed = 1f;
+	public float movementSpeed = 0.5f;
 	public float amplitude = 1f;
-	public float sinAmplitude = 0.4f;
-	public float sinFrequence = 1f;
-	public float sinSpeed = 1f;
+	public float sinAmplitude = 0.25f;
+	public float sinFrequence = 0.6f;
+	public float sinSpeed = 1.5f;
 
 	MeshFilter _renderer;
 	Mesh _mesh;
