@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class ScoreManager : MonoBehaviour
     private int currentScore;
     private int currentMultiplyer = 1;
     private Coroutine currentMultiplyerCoroutine;
+    public Action<int> OnScoreChanged;
 
     public int CurrentScore
     {
@@ -46,8 +48,20 @@ public class ScoreManager : MonoBehaviour
         }
         currentScore += score * currentMultiplyer;
 
-		var meter = FindObjectOfType<Meter>();
-		if (meter != null) meter.Refill();
+        if (this.OnScoreChanged != null)
+        {
+            this.OnScoreChanged(this.currentScore);
+        }
+
+        var meter = FindObjectOfType<Meter>();
+        if (meter != null) meter.Refill();
+
+        // Check for high score
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (currentScore > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", currentScore);
+        }
     }
 
     public void MultiplyerAtPointForDuration(Vector3 point, int multiplyer, float duration)
@@ -65,5 +79,11 @@ public class ScoreManager : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         currentMultiplyer = 1;
+    }
+
+    public void SinkBoatOfType(string boatName)
+    {
+        int currentValue = PlayerPrefs.GetInt(boatName, 0);
+        PlayerPrefs.SetInt(boatName, currentValue + 1);
     }
 }

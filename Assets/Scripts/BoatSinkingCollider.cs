@@ -29,8 +29,7 @@ public class BoatSinkingCollider : MonoBehaviour
         //if (collider.GetComponent<WaterPixel>() != null)
         if (collider.gameObject.layer == WATER_LAYER) {
             // we have hit the water in a bad way, time to die
-            if (boatController != null)
-			boatController.Sink();
+            if (boatController != null) boatController.Sink();
         }
     }
 }

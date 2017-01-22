@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameplayScene : MonoBehaviour
 {
+    private bool died = false;
     public GameObject LightningPrefab;
 
     public Slider TowerHealthSlider;
@@ -15,6 +17,8 @@ public class GameplayScene : MonoBehaviour
     public BoatSpawner BoatSpawner;
     public Catapult Catapult;
     public GameObject MeterContainer;
+    public ScoreManager ScoreManager;
+    public Text ScoreText;
 
     public GameObject LightningMeterPrefab;
     Meter lightningChargeMeter;
@@ -32,6 +36,9 @@ public class GameplayScene : MonoBehaviour
         #endregion
 
         lightningChargeMeter = LightningMeterPrefab.GetComponentsInChildren<Meter>()[0];
+
+        this.ScoreManager.OnScoreChanged +=
+            score => this.ScoreText.text = score.ToString();
     }
 
     public void Update()
@@ -77,13 +84,27 @@ public class GameplayScene : MonoBehaviour
 
     public void AddDamage(float damage)
     {
+        if (this.died)
+        {
+            return;
+        }
+
         this.TowerHealthSlider.value = Mathf.Max(0, this.TowerHealthSlider.value - damage);
         if (this.TowerHealthSlider.value == 0)
         {
+            this.died = true;
             this.GameOverPanel.gameObject.SetActive(true);
             this.BoatSpawner.gameObject.SetActive(false);
             this.Catapult.gameObject.SetActive(false);
             this.MeterContainer.SetActive(false);
+            this.ScoreManager.gameObject.SetActive(false);
+            StartCoroutine(QuitToMainMenu());
         }
+    }
+
+    public IEnumerator QuitToMainMenu()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene("MainMenu");
     }
 }
