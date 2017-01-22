@@ -9,18 +9,32 @@ public class BoatController : MonoBehaviour
     public float SinkSpeed = 3.0f;
     private const int SINKING_LAYER = 8;
 
+    private bool playedSplash;
     private bool IsSinking;
 
-	void Start ()
+    public AudioClip SplashClip;
+    public AudioSource AudioSource;
+
+    void OnCollisionEnter(Collision collision)
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        if (playedSplash)
+        {
+            return;
+        }
+
+        playedSplash = true;
+
+        if (this.AudioSource && this.SplashClip)
+        {
+            AudioUtils.PlayAudioClip(this.SplashClip, this.AudioSource);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         gameObject.transform.position += Velocity * Time.deltaTime;
-	}
+    }
 
     internal void Sink()
     {
