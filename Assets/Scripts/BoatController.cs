@@ -39,7 +39,14 @@ public class BoatController : MonoBehaviour
     internal void Sink()
     {
         GetComponent<Rigidbody>().drag = 6f;
-        gameObject.layer = SINKING_LAYER;
         Debug.Log("Glug glug glug");
+
+        gameObject.layer = SINKING_LAYER;
+        foreach (var subComponent in GetComponentsInChildren<Transform>())
+        {
+            subComponent.gameObject.layer = SINKING_LAYER;
+        }
+
+        FindObjectOfType<ScoreManager>().ScoreAtPoint(transform.position, 10);
     }
 }
