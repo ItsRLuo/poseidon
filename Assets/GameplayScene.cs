@@ -44,7 +44,7 @@ public class GameplayScene : MonoBehaviour
         rt.anchoredPosition3D = new Vector3(viewportPosition_start.x + rt.sizeDelta.x / 2, viewportPosition_start.y, 0);
         #endregion
 
-        if (lightningChargeMeter.Full()) {
+        if (lightningChargeMeter.Full() && !this.died) {
             bool executeAll = false;
 
             if (Input.GetMouseButtonDown(0)) {
