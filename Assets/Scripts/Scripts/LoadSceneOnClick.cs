@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class LoadSceneOnClick : MonoBehaviour {
 
 	// Use this for initialization
-	public void LoadByName()
-	{
-		SceneManager.LoadScene("Gameplay");
-}
+	public void LoadByName() {
+        //SceneManager.LoadScene("Gameplay");
+        Application.LoadLevel ("Gameplay");
+    }
 }
